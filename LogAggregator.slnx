@@ -1,7 +1,4 @@
 <Solution>
-  <Folder Name="/sample-logs/">
-    <File Path="app1.log" />
-    <File Path="app2.json" />
-  </Folder>
+  <Folder Name="/sample-logs/" />
   <Project Path="LogAggregator/LogAggregator.csproj" />
 </Solution>
