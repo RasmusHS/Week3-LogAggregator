@@ -1,21 +1,30 @@
 ﻿namespace LogAggregator.Models;
 
-public class LogEntry
+/// <summary>
+/// Represents a single log entry containing details about a logging event, such as timestamp, log level, source, and
+/// message.
+/// </summary>
+/// <remarks>This is an abstract base class for log entries. Derived types can extend this class to include
+/// additional information relevant to specific logging scenarios. Instances of this class are typically used to record
+/// and process log events within logging frameworks.</remarks>
+public abstract class LogEntry
 {
-
-    public DateTime Timestamp { get; set; }
-    //public string? LogLevel { get; set; }
+    public DateTimeOffset Timestamp { get; set; }
     public LogLevel? LogLevel { get; set; }
-    public string Message { get; set; } 
+    public bool LevelInferred { get; set; } // Indicates whether the log level was inferred from the message content.
     public string Source { get; set; }
-
-    
+    public string? Component { get; set; }
+    public string Message { get; set; } 
 }
 
+/// <summary>
+/// Specifies the severity level of a log message.
+/// </summary>
+/// <remarks>Use this enumeration to indicate the importance or urgency of log entries. Higher severity levels
+/// typically represent more critical issues.</remarks>
 public enum LogLevel
 {
     Info,
     Warn,
-    Error,
-    Debug
+    Error
 }
