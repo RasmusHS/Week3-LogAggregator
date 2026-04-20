@@ -7,13 +7,14 @@
 /// <remarks>This is an abstract base class for log entries. Derived types can extend this class to include
 /// additional information relevant to specific logging scenarios. Instances of this class are typically used to record
 /// and process log events within logging frameworks.</remarks>
-public abstract class LogEntry
+public class LogEntry
 {
     public DateTimeOffset Timestamp { get; set; }
     public LogLevel? LogLevel { get; set; }
     public bool LevelInferred { get; set; } // Indicates whether the log level was inferred from the message content.
     public string Source { get; set; }
     public string? Component { get; set; }
+    public Dictionary<string, string> AdditionalProperties { get; set; } = new Dictionary<string, string>(); // For any additional properties that may be relevant to specific log entry types.
     public string Message { get; set; } 
 }
 

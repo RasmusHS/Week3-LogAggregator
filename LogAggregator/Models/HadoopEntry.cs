@@ -9,7 +9,7 @@
 public class HadoopEntry : LogEntry
 {
     // Structure:
-    // Timestamp: year-month-day hour:minute:second,PID example: 2022-12-04 18:00:00,999
+    // Timestamp: year-month-day hour:minute:second,millisecond example: 2022-12-04 18:00:00,999
     // LogLevel: e.g. "INFO", "ERROR", "WARN"
     // Component/source: e.g. "org.apache.hadoop.yarn.webapp.WebApps"
     // Message: e.g. "Registered webapp guice modules"
