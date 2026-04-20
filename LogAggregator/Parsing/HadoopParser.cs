@@ -1,4 +1,5 @@
 ﻿using LogAggregator.Config;
+using LogAggregator.Models;
 
 namespace LogAggregator.Parsing;
 
@@ -11,7 +12,7 @@ public class HadoopParser : ILogParser
         _target = target;
     }
 
-    public async Task<string> Parse(string input)
+    public LogEntry Parse(string line)
     {
         throw new NotImplementedException();
     }
