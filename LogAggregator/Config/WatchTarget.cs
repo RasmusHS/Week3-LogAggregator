@@ -15,4 +15,7 @@ public class WatchTarget
 
     [JsonPropertyName("TimeFormat")]
     public string TimeFormat { get; set; }
+
+    [JsonPropertyName("Year")]
+    public int Year { get; set; }
 }

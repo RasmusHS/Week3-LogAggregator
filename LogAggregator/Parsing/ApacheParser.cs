@@ -1,5 +1,6 @@
 ﻿using LogAggregator.Config;
 using LogAggregator.Models;
+using System.Globalization;
 using System.Text.RegularExpressions;
 
 namespace LogAggregator.Parsing;
@@ -7,6 +8,7 @@ namespace LogAggregator.Parsing;
 public class ApacheParser : ILogParser
 {
     private readonly WatchTarget _target;
+    private static readonly Regex _apacheRegex = new(@"^\[(?<ts>.+?)\]\s\[(?<level>\w+)\]\s(?<message>.+)$", RegexOptions.Compiled);
 
     public ApacheParser(WatchTarget target)
     {
@@ -15,22 +17,24 @@ public class ApacheParser : ILogParser
 
     public LogEntry Parse(string line)
     {
-        LogEntry temp = Regex.Matches(line, @"^\[(?<ts>.+?)\]\s\[(?<level>\w+)\]\s(?<message>.+)$").FirstOrDefault() is Match match
-            ? new LogEntry
+        var match = _apacheRegex.Match(line);
+        if (!match.Success)
+            return null;
+
+        return new LogEntry
+        {
+            Timestamp = DateTimeOffset.ParseExact(match.Groups["ts"].Value, _target.TimeFormat, CultureInfo.InvariantCulture),
+            LogLevel = match.Groups["level"].Value switch
             {
-                // Parse the timestamp using the provided format and convert from ddd MMM dd HH:mm:ss yyyy to yyyy-MM-dd HH:mm:ss format
-                Timestamp = DateTimeOffset.ParseExact(match.Groups["ts"].Value, "ddd MMM dd HH:mm:ss yyyy", null),
-                LogLevel = match.Groups["level"].Value switch
-                {
-                    "error" => LogLevel.Error,
-                    "warn" => LogLevel.Warn,
-                    "notice" => LogLevel.Info,
-                    _ => null
-                },
-                LevelInferred = false,
-                Component = null,
-                Source = _target.Source,
-                Message = match.Groups["message"].Value,
-            } : throw new FormatException($"Line does not match expected Apache log format: {line}");
+                "error" => LogLevel.Error,
+                "warn" => LogLevel.Warn,
+                "notice" => LogLevel.Info,
+                _ => null
+            },
+            LevelInferred = false,
+            Source = _target.Source,
+            Component = null,
+            Message = match.Groups["message"].Value
+        };
     }
 }
