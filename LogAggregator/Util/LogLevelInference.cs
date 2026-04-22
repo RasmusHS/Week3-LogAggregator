@@ -37,7 +37,7 @@ public static class LogLevelInference
 
     // Keywords specific to OpenSSH logs.
     private static readonly List<string> ErrorKeywordsOpenSSH = new List<string>(ErrorKeywordsBase) { "authentication failure", "possible break-in attempt!", "authentication failures", "failed password" };
-    private static readonly List<string> WarningKeywordsOpenSSH = new List<string>(WarningKeywordsBase) { "invalid user", "check pass: user unknown" };
+    private static readonly List<string> WarningKeywordsOpenSSH = new List<string>(WarningKeywordsBase) { "invalid user", "check pass; user unknown" };
     private static readonly List<string> InfoKeywordsOpenSSH = new List<string>(InfoKeywordsBase) { "accepted password", "session opened", "session closed", "received disconnect", "connection closed" };
 
     // Keywords specific to Linux logs.

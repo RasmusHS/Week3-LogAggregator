@@ -33,7 +33,11 @@ public class ApacheParser : ILogParser
             },
             LevelInferred = false,
             Source = _target.Source,
-            Component = null,
+            Component = "n/a",
+            AdditionalProperties = new Dictionary<string, string>
+            {
+                { "n/a", "n/a" }
+            },
             Message = match.Groups["message"].Value
         };
     }
