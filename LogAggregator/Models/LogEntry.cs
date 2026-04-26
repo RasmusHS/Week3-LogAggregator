@@ -14,7 +14,7 @@ public class LogEntry
     public bool LevelInferred { get; set; } // Indicates whether the log level was inferred from the message content.
     public string Source { get; set; }
     public string? Component { get; set; }
-    public Dictionary<string, string>? AdditionalProperties { get; set; } = new Dictionary<string, string>(); // For any additional properties that may be relevant to specific log entry types.
+    public Dictionary<string, string> AdditionalProperties { get; set; } = new Dictionary<string, string>(); // For any additional properties that may be relevant to specific log entry types.
     public string Message { get; set; } 
 }
 
